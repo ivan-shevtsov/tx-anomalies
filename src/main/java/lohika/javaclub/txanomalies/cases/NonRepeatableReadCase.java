@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 @Slf4j
@@ -25,16 +26,15 @@ public class NonRepeatableReadCase {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Product> listProductWithId(Integer productId) throws Exception {
-        List<Product> list = new ArrayList<>(2);
-        list.add(productRepository.findById(productId).orElseThrow());
-        entityManager.clear();
-        cyclicBarrier.await();
-        list.add(productRepository.findById(productId).orElseThrow());
-        return list;
+        return getProducts(productId);
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public List<Product> safeListProductWithId(Integer productId) throws Exception {
+        return getProducts(productId);
+    }
+
+    private List<Product> getProducts(Integer productId) throws InterruptedException, BrokenBarrierException {
         List<Product> list = new ArrayList<>(2);
         list.add(productRepository.findById(productId).orElseThrow());
         entityManager.clear();
