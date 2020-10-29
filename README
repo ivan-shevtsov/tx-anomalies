@@ -1,0 +1,23 @@
+Very simple web application to demonstrate different anomalies in transaction management with different
+isolation levels. <p>
+
+MariaDB - supports:
+- Dirty Read
+- Non-Repeatable Read
+
+How to Test:
+After initialization the test db in docker will contain single row of product
+id=1, price=2
+
+Get All Products:
+    http://localhost:8080/products
+
+Dirty Read Scenario:
+ * http://localhost:8080/dirty-read/update?id=1&price=50&name=test
+ * http://localhost:8080/dirty-read/get?id=1
+
+
+Non-Repeatable Read Scenario:
+ *  http://localhost:8080/nonrepeatable-read/get?id=1
+      (response gets unblocked by second request)
+ *  http://localhost:8080/nonrepeatable-read/twiceprice?id=1
