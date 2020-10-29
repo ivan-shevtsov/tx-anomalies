@@ -19,6 +19,11 @@ public class NonRepeatableReadController {
         return nonRepeatableReadCase.listProductWithId(id);
     }
 
+    @GetMapping("/nonrepeatable-read/get-safe")
+    public List<Product> getByIdSafe(Integer id) throws Exception {
+        return nonRepeatableReadCase.safeListProductWithId(id);
+    }
+
     @GetMapping("/nonrepeatable-read/twiceprice")
     public Product twicePriceOfProductWithId(Integer id) throws Exception {
         return nonRepeatableReadCase.twicePriceOfProduct(id);

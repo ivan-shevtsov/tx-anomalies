@@ -33,6 +33,16 @@ public class NonRepeatableReadCase {
         return list;
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public List<Product> safeListProductWithId(Integer productId) throws Exception {
+        List<Product> list = new ArrayList<>(2);
+        list.add(productRepository.findById(productId).orElseThrow());
+        entityManager.clear();
+        cyclicBarrier.await();
+        list.add(productRepository.findById(productId).orElseThrow());
+        return list;
+    }
+
     public Product twicePriceOfProduct(Integer productId) throws Exception {
         var product = productRepository.findById(productId).orElseThrow();
         log.info("Update price of product [product={}]", product);
