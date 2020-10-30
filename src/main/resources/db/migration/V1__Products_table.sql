@@ -5,3 +5,5 @@ CREATE TABLE product (
 );
 
 INSERT INTO product VALUES (1, 2, 'product A');
+INSERT INTO product VALUES (2, 3, 'product B');
+INSERT INTO product VALUES (3, 4, 'product C');

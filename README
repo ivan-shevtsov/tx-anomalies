@@ -21,3 +21,10 @@ Non-Repeatable Read Scenario:
  *  http://localhost:8080/nonrepeatable-read/get?id=1
       (response gets unblocked by second request)
  *  http://localhost:8080/nonrepeatable-read/twiceprice?id=1
+
+Lost Update:
+ 1. http://localhost:8080/write/lost-update/save?id=1&price=5&name=Product_A
+    Starts Transaction T1, do some processing
+ 2. http://localhost:8080/write/lost-update/save?id=1&price=50&name=Productaaaaa
+    Starts Transaction T2, update product
+ 3. T1 updates product with id=1 and overwrite value from T2
