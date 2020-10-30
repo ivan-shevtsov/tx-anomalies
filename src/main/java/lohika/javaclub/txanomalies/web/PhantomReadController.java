@@ -14,17 +14,17 @@ public class PhantomReadController {
 
     final PhantomReadCase phantomReadCase;
 
-    @GetMapping("/phantom-read/get")
+    @GetMapping("/anomalies/phantom-read/get")
     public List<Product> getById(Double price) throws Exception {
         return phantomReadCase.listProductWithPriceLessThan(price);
     }
 
-    @GetMapping("/phantom-read/get-safe")
+    @GetMapping("/anomalies/phantom-read/get-safe")
     public List<Product> getByIdSafe(Double price) throws Exception {
         return phantomReadCase.safeListProductWithPricesLessThan(price);
     }
 
-    @GetMapping("/phantom-read/twiceprice")
+    @GetMapping("/anomalies/phantom-read/twiceprice")
     public Product twicePriceOfProductWithId(Integer id) throws Exception {
         return phantomReadCase.twicePriceOfProduct(id);
     }

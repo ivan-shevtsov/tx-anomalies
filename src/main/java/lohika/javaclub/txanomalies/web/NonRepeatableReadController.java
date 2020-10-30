@@ -14,17 +14,17 @@ public class NonRepeatableReadController {
 
     final NonRepeatableReadCase nonRepeatableReadCase;
 
-    @GetMapping("/nonrepeatable-read/get")
+    @GetMapping("/anomalies/nonrepeatable-read/get")
     public List<Product> getById(Integer id) throws Exception {
         return nonRepeatableReadCase.listProductWithId(id);
     }
 
-    @GetMapping("/nonrepeatable-read/get-safe")
+    @GetMapping("/anomalies/nonrepeatable-read/get-safe")
     public List<Product> getByIdSafe(Integer id) throws Exception {
         return nonRepeatableReadCase.safeListProductWithId(id);
     }
 
-    @GetMapping("/nonrepeatable-read/twiceprice")
+    @GetMapping("/anomalies/nonrepeatable-read/twiceprice")
     public Product twicePriceOfProductWithId(Integer id) throws Exception {
         return nonRepeatableReadCase.twicePriceOfProduct(id);
     }
